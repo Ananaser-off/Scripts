@@ -45,6 +45,79 @@ local function GetIcon(IconName)
 	end
 end   
 
+-- [START ANANASER INTRO] --
+task.spawn(function()
+    -- Настройки интро
+    local IntroText = "ANANASER HUB" 
+    
+    if not game:IsLoaded() then game.Loaded:Wait() end
+    local TS = game:GetService("TweenService")
+    local IG = Instance.new("ScreenGui")
+    IG.Name = "AnanaserBoot"
+    IG.IgnoreGuiInset = true
+    IG.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+    IG.Parent = game:GetService("CoreGui") -- Используем CoreGui для перекрытия всего
+
+    local BG = Instance.new("Frame")
+    BG.BackgroundColor3 = Color3.fromRGB(10, 10, 12)
+    BG.Size = UDim2.fromScale(1, 1)
+    BG.ZIndex = 999
+    BG.Parent = IG
+
+    local MT = Instance.new("TextLabel")
+    MT.Name = "MainText"
+    MT.Text = ""
+    MT.TextColor3 = Color3.fromRGB(255, 190, 0) -- Желтый цвет
+    MT.Font = Enum.Font.GothamBlack
+    MT.TextSize = 40
+    MT.Size = UDim2.fromScale(1, 1)
+    MT.BackgroundTransparency = 1
+    MT.Parent = BG
+    
+    local ST = Instance.new("TextLabel")
+    ST.Text = "SYSTEM INJECTION..."
+    ST.TextColor3 = Color3.fromRGB(150, 150, 150)
+    ST.Font = Enum.Font.Code
+    ST.TextSize = 16
+    ST.Size = UDim2.fromScale(1, 1)
+    ST.Position = UDim2.fromOffset(0, 40)
+    ST.BackgroundTransparency = 1
+    ST.TextTransparency = 1
+    ST.Parent = BG
+
+    local CH = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&"
+    
+    wait(0.2)
+
+    -- Эффект декодирования текста
+    for i = 1, #IntroText do
+        -- Глитч перед буквой
+        for k = 1, 2 do
+            MT.Text = string.sub(IntroText, 1, i-1) .. string.sub(CH, math.random(1, #CH), math.random(1, #CH))
+            wait(0.02)
+        end
+        MT.Text = string.sub(IntroText, 1, i)
+    end
+    
+    TS:Create(ST, TweenInfo.new(0.5), {TextTransparency = 0, Position = UDim2.fromOffset(0, 30)}):Play()
+    
+    wait(1.5) -- Время показа лого
+    
+    -- Анимация выключения (схлопывание)
+    TS:Create(BG, TweenInfo.new(0.4, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out), {Size = UDim2.new(1, 0, 0, 2), Position = UDim2.new(0,0,0.5,0)}):Play()
+    TS:Create(MT, TweenInfo.new(0.2), {TextTransparency = 1}):Play()
+    TS:Create(ST, TweenInfo.new(0.2), {TextTransparency = 1}):Play()
+    
+    wait(0.4)
+    TS:Create(BG, TweenInfo.new(0.2), {Size = UDim2.new(0, 0, 0, 0)}):Play()
+    
+    wait(0.2)
+    IG:Destroy()
+end)
+-- [END ANANASER INTRO] --
+
+-- Дальше идет твой код:
+-- ...
 local Fruty = Instance.new("ScreenGui")
 Fruty.Name = "Fruty"
 if syn then
